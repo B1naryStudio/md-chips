@@ -1,3 +1,17 @@
 # md-chips
 Angular input-chips directive following Google Material Design guidelines
-src="//material-design.storage.googleapis.com/publish/v_2/material_ext_publish/0Bx4BSt6jniD7aF92ZTRxOTU4U00/components_chips_contact1.png"
+
+## Usage
+Include md-chips module as a dependency 
+
+```
+angular.module('myModule', ['mdChips'])
+```
+
+In your html code include mdchips.js and md-chips.css
+
+```
+<link rel="stylesheet" type="text/css" href="mdchips.css">
+
+<script src="mdchips.js"></script>
+```
