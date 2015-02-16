@@ -28,7 +28,7 @@
 
 .chips-title, .chips-active-title {
 	display: inline-block;
-	font-family: 'RobotoRegular';
+	font-family: 'RobotoRegular', Arial;
 	font-size: 16px;
 	padding-top: 16px;
 }
@@ -39,7 +39,7 @@
 
 .chips-description, .chips-active-description {
 	margin:0;
-	font-family: 'RobotoRegular';
+	font-family: 'RobotoRegular', Arial;
 	font-size: 14px;
 	padding-bottom: 16px;
 }
@@ -74,7 +74,7 @@
 	float:left;
 	display: inline-block;
 	padding: 8px 12px 8px 8px;
-	font-family: 'RobotoRegular';
+	font-family: 'RobotoRegular', Arial;
 	font-size: 14px;
 }
 
@@ -114,6 +114,8 @@ input.chipsInput:focus {
 
 .chipsInput {
 	height: 52px;
+	width:30px;
+	float: left;
 }
 
 .chips-active {
@@ -180,9 +182,21 @@ input.chipsInput:focus {
 }
 
 .chips-active-description-only {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	font-family: 'RobotoRegular';
+	margin-top: 26px;
+	margin-bottom: 26px;
+	font-family: 'RobotoRegular', Arial;
 	font-size: 14px;
 	color: #A5A5A5;
+}
+
+.input-chips-elements {
+	overflow: hidden;
+}
+
+#chips-list {
+	height: 220px;
+	overflow: auto;
+	position: absolute;
+	width: 100%;
+	background: white;
 }

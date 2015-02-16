@@ -1,28 +1,4 @@
-angular.module('mdChipsApp', []).
-	controller('MainController', function($scope){
-		$scope.itemsCollection = [{
-			url: '1.jpg',
-			title: 'John Smith',
-			description: 'john@gmail.com',
-			items: [{description: 'john2@gmail.com', url: '2.jpg'}]
-		}, {
-			url: '2.jpg',
-			title: 'Amy Adams',
-			description: 'amy@gmail.com',
-			items: [{description: 'amy2@gmail.com'}]
-		},{
-			url: '3.jpg',
-			title: 'Earl Grey',
-			description: 'john@gmail.com',
-			items: []
-		},{
-			url: '3.jpg',
-			title: 'Sam Uel ',
-			description: 'sammy@gmail.com'
-		}];
-
-		$scope.selectedUsers = [];
-	})
+angular.module('mdChips', [])
 	.directive('mdChips', ['$compile','$timeout', '$document', function($compile, $timeout, $document){
 		
 		return {
@@ -34,13 +10,13 @@ angular.module('mdChipsApp', []).
 									<div ng-repeat="chips in ngModel track by $index" class="chips-mini-item"> \
 										<div class="chips-mini" ng-click="showMore($index, $event)"> \
 											<div class="chips-mini-img"> \
-												<img ng-src="{{chips.url}}" /> \
+												<img ng-src="{{chips[mdThumbnail] ? chips[mdThumbnail] : chips[mdItem][0][mdThumbnail]}}" /> \
 											</div> \
-											<div class="chips-mini-title">{{chips.title}}</div> \
+											<div class="chips-mini-title">{{chips[mdTitle]}}</div> \
 										</div> \
 									</div> \
 									<div class="chips-active" ng-style="{top: ytop}" ng-model="ytop" ng-click="closeActive($event)"></div> \
-									<input type="text" ng-model="chipsText.title" ng-focus="clearActive()" ng-keydown="clearPrev($event)" class="chipsInput"/> \
+									<input type="text" ng-model="chipsText[mdTitle]" ng-focus="clearActive()" ng-keydown="clearPrev($event)" class="chipsInput"/> \
 								</div> \
 							</div> \
 						</div>',
@@ -64,10 +40,10 @@ angular.module('mdChipsApp', []).
 															<div ng-repeat='item in collection | filter:chipsText' class='chips-list-item' ng-click=addToInput(item)> \
 																<div class='chips-item-wrapper'> \
 																	<div class='chips-image'> \
-																		<img ng-src='{{item.url}}'> \
+																		<img ng-src='{{item[mdThumbnail] ? item[mdThumbnail] : item[mdItem][0][mdThumbnail]}}'> \
 																	</div> \
-																	<span class='chips-title'>{{item.title}}</span> \
-																	<p class='chips-description'>{{item.description}}</p> \
+																	<span class='chips-title'>{{item[mdTitle]}}</span> \
+																	<p class='chips-description'>{{item[mdSubtitle] ? item[mdSubtitle] : item[mdItem][0][mdSubtitle]}}</p> \
 																</div> \
 															</div> \
 														</div>");
@@ -86,14 +62,13 @@ angular.module('mdChipsApp', []).
 				$document.bind('click', function(evt){
 					var chipsActive = element[0].querySelector('.chips-active');
 					if (chipsActive.hasChildNodes()){
-						while (chipsActive.firstChild) {
-					    	chipsActive.removeChild(chipsActive.firstChild);
-						}
+						this.clearActiveChildren(chipsActive);
 					}
 				});
 
 				element.bind('click', function(evt){
 					evt.stopPropagation();
+					element[0].querySelector('.chipsInput').focus();
 				});
 
 				scope.removeList = function(){
@@ -104,17 +79,32 @@ angular.module('mdChipsApp', []).
 				};
 
 				scope.addToInput = function(item){
-					console.log(element);
-					this.ngModel.push(JSON.parse(JSON.stringify(item)));
-					this.chipsText.title = '';
+					var chipsElement = this.createElementAttributes(JSON.parse(JSON.stringify(item)));
+					this.ngModel.push(chipsElement);
+					this.chipsText[this.mdTitle] = '';
 					this.removeList();
+					element[0].querySelector('.chipsInput').focus();
+				};
+
+				scope.createElementAttributes = function(item){
+					if(!item[this.mdThumbnail] && !item[this.mdSubtitle]){
+						if (item[this.mdItem][0]){
+							var firstSubEl = item[this.mdItem].shift();
+							item[this.mdThumbnail] = firstSubEl[this.mdThumbnail] ? firstSubEl[this.mdThumbnail] : '';
+							item[this.mdSubtitle] = firstSubEl[this.mdSubtitle] ? firstSubEl[this.mdSubtitle] : 'No info';
+						} else {
+							item[this.mdThumbnail] = '';
+							item[this.mdSubtitle] = 'No info';
+						}
+					}
+					return item;
 				};
 
 				scope.showMore = function(index, event){
 					scope.ytop = event.currentTarget.offsetTop + 'px';
 					var item = scope.ngModel[index],
-						chipsActive = element[0].querySelector('.chips-active'),
-						html = '<div id ="chips-active-list"><div class="chips-active-main">  \
+						chipsActive = element[0].querySelector('.chips-active');	
+					var html = '<div id ="chips-active-list"><div class="chips-active-main">  \
 									<div class="chips-active-img"> \
 										<img src=' + item[scope.mdThumbnail] + ' /> \
 									</div> \
@@ -144,13 +134,11 @@ angular.module('mdChipsApp', []).
 					html+='</div>';
 					var chips = angular.element(html);
 					if (chipsActive.hasChildNodes()){
-						while (chipsActive.firstChild) {
-					    	chipsActive.removeChild(chipsActive.firstChild);
-						}
+						this.clearActiveChildren(chipsActive);
 					}
 					$compile(chips)(scope);
 					if (element[0].querySelector('#chips-list')){
-						this.chipsText.title = ''; 
+						this.chipsText[this.mdTitle] = ''; 
 						element[0].querySelector('#chips-list').remove();
 					}
 					chipsActive.appendChild(chips[0]);
@@ -161,9 +149,7 @@ angular.module('mdChipsApp', []).
 					console.log("Ho", index);
 					scope.ngModel.splice(index,1);
 					var chipsActive = element[0].querySelector('.chips-active');
-					while (chipsActive.firstChild) {
-					    chipsActive.removeChild(chipsActive.firstChild);
-					}
+					this.clearActiveChildren(chipsActive);
 				};
 
 				scope.clearPrev = function(event){
@@ -175,16 +161,19 @@ angular.module('mdChipsApp', []).
 
 				scope.closeActive = function(event){
 					if (event.currentTarget.hasChildNodes()){
-						while (event.currentTarget.firstChild) {
-					   		event.currentTarget.removeChild(event.currentTarget.firstChild);
-						}
+						this.clearActiveChildren(event.currentTarget);
 					}
 				};
 
 				scope.clearActive = function(){
 					var chipsActive = element[0].querySelector('.chips-active');
-					while (chipsActive.firstChild) {
-					    chipsActive.removeChild(chipsActive.firstChild);
+					this.clearActiveChildren(chipsActive);
+					
+				};
+
+				scope.clearActiveChildren = function(active){
+					while (active.firstChild) {
+					    active.removeChild(active.firstChild);
 					}
 				};
 
@@ -203,5 +192,3 @@ angular.module('mdChipsApp', []).
 		}
 
 	}]);
-
-	// <div class="list-item"><span>{{}}</span><div>

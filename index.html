@@ -4,16 +4,20 @@
 		<link rel="stylesheet" type="text/css" href="mdchips.css">
 		<meta name="viewport" content="width=device-width" />
 	</head>
-	<body ng-app='mdChipsApp' ng-controller="MainController">
+	<body ng-app='mdChipsDemo' ng-controller="MainController">
 		<div>
 			<md-chips collection='itemsCollection' ng-model='selectedUsers' text='To' md-title='title' md-thumbnail='url' md-subtitle='description' md-item='items'/>
 		</div>
 		<div>
 			<div ng-repeat='user in selectedUsers track by $index'>
 				<p>{{user.description}}</p>
+				<p>{{user.title}}</p>
+				<p>{{user.url}}</p>
+				<p>{{user.items.length}}</p>
 			</div>
 		</div>
-	</body>	
+	</body>
 	<script src="angular.js"></script>
 	<script src="mdchips.js"></script>
+	<script src="app.js"></script>
 </html>
