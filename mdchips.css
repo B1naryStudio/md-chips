@@ -11,6 +11,7 @@
 	display: inline-block;
 	float:left;
 	height: 72px;
+	
 }
 .chips-image img, .chips-active-img img{
 	width:40px;

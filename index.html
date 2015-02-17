@@ -17,16 +17,60 @@
 			margin-left:25%;
 			margin-right:25%;
 		}
+
+		.toUserText {
+			width: 20px;
+			padding-right: 5px;
+			padding-top: 17px;
+			display: inline-block;
+			float: left;
+			color:#777;
+		}
+
+		.input {
+			margin-left: 30px;
+		}
+
+		.header {
+			background: #00B8D4;
+			height:50px;
+		}
+
+		.header p {
+			color: #87dfed;
+			padding-top: 15px;
+			text-align: center;
+		}
+
+		.retval {
+			background: #C5FFB9;
+			word-break: break-word;
+		}
+
+		.demo-wrap {
+			margin:auto;
+			width:330px;
+			border-bottom: 1px solid #aaa;
+		}
+
+		.headerText {
+			text-align: center;
+			padding-top:20px;
+		}
 	</style>
 	<body ng-app='mdChipsDemo' ng-controller="MainController" class='mdChipsDemo'>
-			
+		<p style="text-align:center"><img src='logo.gif'></p>
+		<p><h1 class="headerText">Demo for Angular md-chips directive</h1></p>
 		<div class='demo-wrap'>
-			<h3>Select item (click in the form):</h3>
-			<md-chips collection='itemsCollection' ng-model='selectedUsers' text='To' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items'/>
+			<div class="header">
+				<p>Click into bottom field and type letter...</p>
+			</div>
+			<div class='toUserText'> To </div>
+			<md-chips collection='itemsCollection' ng-model='selectedUsers' text='To' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items' class='input'/>
 		</div>
 		<div>
 			<h3>Returned values:</h3>
-			<div ng-repeat='user in selectedUsers track by $index' style="background: #eaeaea; padding:10px; margin-bottom:10px">
+			<div ng-repeat='user in selectedUsers track by $index' style="padding:10px; margin-bottom:10px" class="retval">
 				<p><b>Title -</b> {{user.title}}</p>
 				<p><b>Subtitle -</b> {{user.subtitle}}</p>
 				<p><b>ThumbnailUrl -</b> {{user.thumbnailUrl}}</p>
