@@ -6,14 +6,12 @@
 	</head>
 	<body ng-app='mdChipsDemo' ng-controller="MainController">
 		<div>
-			<md-chips collection='itemsCollection' ng-model='selectedUsers' text='To' md-title='title' md-thumbnail='url' md-subtitle='description' md-item='items'/>
+			<md-chips collection='itemsCollection' ng-model='selectedUsers' text='To' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items'/>
 		</div>
 		<div>
+			<h3>Returned values:</h3>
 			<div ng-repeat='user in selectedUsers track by $index'>
-				<p>{{user.description}}</p>
-				<p>{{user.title}}</p>
-				<p>{{user.url}}</p>
-				<p>{{user.items.length}}</p>
+				{{JSON.stringify(user)}}
 			</div>
 		</div>
 	</body>
