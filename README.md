@@ -1,5 +1,7 @@
 # md-chips
 Angular input-chips directive following Google Material Design guidelines
+Live [Demo](http://b1narystudio.github.io/md-chips/)
+![alt text](https://github.com/B1naryStudio/md-chips/blob/master/title.jpg "Chips Example")
 
 ## Dependencies
 This directive works with Angular v1.3.13. 
