@@ -11,12 +11,13 @@
 	display: inline-block;
 	float:left;
 	height: 72px;
+
 }
 .chips-image img, .chips-active-img img{
 	width:40px;
 	height:40px;
 	border-radius: 100px;
-	padding:16px;
+	margin:16px;
 }
 
 .chips-item-wrapper {
@@ -56,6 +57,7 @@
 	margin-top: 8px;
 	margin-right: 8px;
 	color:#969696;
+	height: 32px;
 }
 
  .chips-mini-img {
@@ -73,9 +75,9 @@
 .chips-mini-title {
 	float:left;
 	display: inline-block;
-	padding: 8px 12px 8px 8px;
 	font-family: 'RobotoRegular', Arial;
 	font-size: 14px;
+	padding: 7px 12px 7px 8px;
 }
 
 .chipsInput {
@@ -92,8 +94,6 @@ input.chipsInput:focus {
 
 .chips-input-field {
 	min-height: 30px;
-	border-top: 1px solid #efefef;
-	border-bottom: 1px solid #efefef;
 }
 
 .chips-mini-item {
@@ -204,4 +204,27 @@ input.chipsInput:focus {
 
 .chips-item-wrapper:hover {
 	background: #efefef;
+}
+
+.image-default-mini {
+	width:32px;
+	height:32px;
+	border-radius: 32px;
+	background: #ccc;
+}
+
+.image-default {
+	width:40px;
+	height:40px;
+	border-radius: 100px;
+	margin:16px;
+	background: #ccc;
+}
+
+.chips-active-image-default {
+	width:40px;
+	height:40px;
+	border-radius: 100px;
+	margin:16px;
+	background: #ccc;
 }

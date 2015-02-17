@@ -10,7 +10,8 @@ angular.module('mdChips', [])
 									<div ng-repeat="chips in ngModel track by $index" class="chips-mini-item"> \
 										<div class="chips-mini" ng-click="showMore($index, $event)"> \
 											<div class="chips-mini-img"> \
-												<img ng-src="{{chips[mdThumbnail] ? chips[mdThumbnail] : chips[mdItem][0][mdThumbnail]}}" /> \
+												<img ng-src="{{chips[mdThumbnail] ? chips[mdThumbnail] : undefined }}" ng-show="chips[mdThumbnail]? true : false"/> \
+												<div class="image-default-mini" ng-show="chips[mdThumbnail] ? false : true"></div> \
 											</div> \
 											<div class="chips-mini-title">{{chips[mdTitle]}}</div> \
 										</div> \
@@ -32,18 +33,40 @@ angular.module('mdChips', [])
 			},
 			link: function (scope, element, attrs) {
 				scope.ytop = '10px';
+
+				scope.innerCollection = scope.collection.map(function(item){
+					if (!item[scope.mdTitle]){ 
+						return; 
+					}
+
+					if (!item[scope.mdSubtitle] && !item[scope.mdThumbnail]){
+						if (item[scope.mdItem].length < 1){
+							return;
+						} else {
+							item[scope.mdSubtitle] = item[scope.mdItem][0][scope.mdSubtitle];
+							item[scope.mdThumbnail] = item[scope.mdItem][0][scope.mdThumbnail] ? item[scope.mdItem][0][scope.mdThumbnail] : '';
+							item[scope.mdItem].shift();
+							return item;
+						}
+					}
+
+					return item;
+				});
+
 				element.bind('input', function(event) {
 					var self = scope;
+					scope.clearActive();
 					if (event.target.value) {
 						scope.$apply(function(){
 							var	list = angular.element("<div id='chips-list' ng-show='true'> \
-															<div ng-repeat='item in collection | filter:chipsText' class='chips-list-item' ng-click=addToInput(item)> \
+															<div ng-repeat='item in innerCollection | filter:chipsText' class='chips-list-item' ng-click=addToInput(item)> \
 																<div class='chips-item-wrapper'> \
 																	<div class='chips-image'> \
-																		<img ng-src='{{item[mdThumbnail] ? item[mdThumbnail] : item[mdItem][0][mdThumbnail]}}'> \
+																		<img ng-src='{{item[mdThumbnail]}}' ng-show='item[mdThumbnail] ? true : false'> \
+																		<div class='image-default' ng-show='item[mdThumbnail] ? false : true'></div> \
 																	</div> \
 																	<span class='chips-title'>{{item[mdTitle]}}</span> \
-																	<p class='chips-description'>{{item[mdSubtitle] ? item[mdSubtitle] : item[mdItem][0][mdSubtitle]}}</p> \
+																	<p class='chips-description'>{{item[mdSubtitle]}}</p> \
 																</div> \
 															</div> \
 														</div>");
@@ -60,10 +83,10 @@ angular.module('mdChips', [])
 				});
 
 				$document.bind('click', function(evt){
-					var chipsActive = element[0].querySelector('.chips-active');
-					if (chipsActive.hasChildNodes()){
-						scope.clearActiveChildren(chipsActive);
-					}
+					scope.clearActive();
+					scope.chipsText[scope.mdTitle] = '';
+					scope.removeList();
+					scope.$apply();
 				});
 
 				element.bind('click', function(evt){
@@ -79,51 +102,41 @@ angular.module('mdChips', [])
 				};
 
 				scope.addToInput = function(item){
-					var chipsElement = this.createElementAttributes(JSON.parse(JSON.stringify(item)));
+					var chipsElement = JSON.parse(JSON.stringify(item));
 					this.ngModel.push(chipsElement);
 					this.chipsText[this.mdTitle] = '';
 					this.removeList();
 					element[0].querySelector('.chipsInput').focus();
 				};
 
-				scope.createElementAttributes = function(item){
-					if(!item[this.mdThumbnail] && !item[this.mdSubtitle]){
-						if (item[this.mdItem][0]){
-							var firstSubEl = item[this.mdItem].shift();
-							item[this.mdThumbnail] = firstSubEl[this.mdThumbnail] ? firstSubEl[this.mdThumbnail] : '';
-							item[this.mdSubtitle] = firstSubEl[this.mdSubtitle] ? firstSubEl[this.mdSubtitle] : 'No info';
-						} else {
-							item[this.mdThumbnail] = '';
-							item[this.mdSubtitle] = 'No info';
-						}
-					}
-					return item;
-				};
-
 				scope.showMore = function(index, event){
+					this.removeList();
 					scope.ytop = event.currentTarget.offsetTop + 'px';
 					var item = scope.ngModel[index],
-						chipsActive = element[0].querySelector('.chips-active');	
-					var html = '<div id ="chips-active-list"><div class="chips-active-main">  \
-									<div class="chips-active-img"> \
-										<img src=' + item[scope.mdThumbnail] + ' /> \
-									</div> \
-									<div class="boxclose" id="boxclose" ng-click=deleteChips(' + index + ')><a></a></div> \
-									<div class="chips-active-wrap"> \
-										<div class="chips-active-title">' + item[scope.mdTitle] + '</div> \
-										<p class="chips-active-description">' + item[scope.mdSubtitle] + '</p> \
-									</div> \
-								</div>';
+						chipsActive = element[0].querySelector('.chips-active');
+					var show = 	item[scope.mdThumbnail] ? true : false;
+					var thumb = item[scope.mdThumbnail]? item[scope.mdThumbnail] : '';
+					var htmlCode = '<div id ="chips-active-list"> \
+										<div class="chips-active-main">  \
+											<div class="chips-active-img"> \
+												<img src="' + thumb + '" ng-show=' + show + ' /> \
+												<div class="chips-active-image-default" ng-show=' + !show + '></div> \
+											</div> \
+											<div class="boxclose" id="boxclose" ng-click=deleteChips(' + index + ')><a></a></div> \
+											<div class="chips-active-wrap"> \
+												<div class="chips-active-title">' + item[scope.mdTitle] + '</div> \
+												<p class="chips-active-description">' + item[scope.mdSubtitle] + '</p> \
+											</div> \
+										</div>';
+					
 					if (item[scope.mdItem] && item[scope.mdItem].length > 0){
 						for(var i=0; i < item[scope.mdItem].length; i++){
-							var url = item[scope.mdThumbnail];
-							if (item[scope.mdItem][i][scope.mdThumbnail]){
-								url = item[scope.mdItem][i][scope.mdThumbnail];
-							}
-
-							html += '<div class="md-chips-single-line" ng-click=setOtherEmail(' + index + ',"'+url+'","' + item[scope.mdItem][i][scope.mdSubtitle] + '",' + i + ')>  \
+							var url = item[scope.mdItem][i][scope.mdThumbnail] ? item[scope.mdItem][i][scope.mdThumbnail] : ''; 
+							show = url ? true : false;
+							htmlCode += '<div class="md-chips-single-line" ng-click=setOtherEmail(' + index + ',"'+url+'","' + item[scope.mdItem][i][scope.mdSubtitle] + '",' + i + ')>  \
 									<div class="chips-active-img"> \
-										<img src=' + url + ' /> \
+										<img src="' + url + '" ng-show=' +  show + ' /> \
+										<div class="chips-active-image-default" ng-show=' +  !show + '></div> \
 									</div> \
 									<div class="chips-active-wrap"> \
 										<p class="chips-active-description-only">' + item[scope.mdItem][i][scope.mdSubtitle] + '</p> \
@@ -131,8 +144,9 @@ angular.module('mdChips', [])
 								</div>';
 						}
 					}
-					html+='</div>';
-					var chips = angular.element(html);
+
+					htmlCode += '</div>';
+					var chips = angular.element(htmlCode);
 					if (chipsActive.hasChildNodes()){
 						this.clearActiveChildren(chipsActive);
 					}
@@ -151,8 +165,7 @@ angular.module('mdChips', [])
 				scope.deleteChips = function(index){
 					console.log("Ho", index);
 					scope.ngModel.splice(index,1);
-					var chipsActive = element[0].querySelector('.chips-active');
-					this.clearActiveChildren(chipsActive);
+					this.clearActive();
 				};
 
 				scope.clearPrev = function(event){
@@ -184,7 +197,11 @@ angular.module('mdChips', [])
 					var old = {};
 					old.url = this.ngModel[index][scope.mdThumbnail];
 					old.subtitle = this.ngModel[index][scope.mdSubtitle];
-					this.ngModel[index][scope.mdThumbnail] = url;
+					if (url && url !== 'undefined'){
+						this.ngModel[index][scope.mdThumbnail] = url;
+					} else {
+						delete this.ngModel[index][scope.mdThumbnail];
+					}
 					this.ngModel[index][scope.mdSubtitle]  = email;
 					this.ngModel[index][scope.mdItem][i][scope.mdSubtitle] = old.subtitle;
 					this.ngModel[index][scope.mdItem][i][scope.mdThumbnail] = old.url;
