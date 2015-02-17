@@ -194,7 +194,7 @@ input.chipsInput:focus {
 }
 
 #chips-list {
-	height: 220px;
+	max-height: 220px;
 	overflow: auto;
 	position: absolute;
 	width: 100%;

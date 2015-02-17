@@ -62,7 +62,7 @@ angular.module('mdChips', [])
 				$document.bind('click', function(evt){
 					var chipsActive = element[0].querySelector('.chips-active');
 					if (chipsActive.hasChildNodes()){
-						this.clearActiveChildren(chipsActive);
+						scope.clearActiveChildren(chipsActive);
 					}
 				});
 
@@ -137,11 +137,14 @@ angular.module('mdChips', [])
 						this.clearActiveChildren(chipsActive);
 					}
 					$compile(chips)(scope);
-					if (element[0].querySelector('#chips-list')){
-						this.chipsText[this.mdTitle] = ''; 
-						element[0].querySelector('#chips-list').remove();
-					}
-					chipsActive.appendChild(chips[0]);
+					$timeout(function() {
+						if (element[0].querySelector('#chips-list')){
+							this.chipsText[this.mdTitle] = ''; 
+							element[0].querySelector('#chips-list').remove();
+						}
+						chipsActive.appendChild(chips[0]);
+					});
+					
 
 				};
 
