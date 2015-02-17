@@ -8,7 +8,7 @@ angular.module('mdChipsDemo', ['mdChips'])
 		}, {
 			thumbnailUrl: 'images/beil.jpg',
 			title: 'Christian Beil',
-			subtitle: 'amy@gmail.com',
+			subtitle: 'christian_b@gmail.com',
 			items: [{subtitle: 'beil_christian@gmail.com'}]
 		},{
 			thumbnailUrl: 'images/samuel.jpg',
@@ -20,8 +20,11 @@ angular.module('mdChipsDemo', ['mdChips'])
 			title: 'Silvester Stallone',
 			subtitle: 'silvester@gmail.com'
 		},{	
-			title: 'Jackie',
+			title: 'Jackie Chan',
 			items: [{subtitle: 'jackie@gmail.com', thumbnailUrl: 'images/jackie.jpg'}]
+		},{
+			title: 'Angelina Jolie',
+			subtitle: 'jolie@gmail.com'
 		}];
 
 		$scope.selectedUsers = [];
