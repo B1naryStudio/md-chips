@@ -1,5 +1,5 @@
 # md-chips
-Angular input-chips directive following Google Material Design guidelines
+Angular input-chips directive following Google Material Design guidelines. 
 Live [Demo](http://b1narystudio.github.io/md-chips/)
 ![alt text](https://github.com/B1naryStudio/md-chips/blob/master/title.jpg "Chips Example")
 
@@ -26,7 +26,7 @@ angular.module('myModule', ['mdChips'])
 
 In your html markup write
 
-```javascript
+```html
 <md-chips collection='itemsCollection' ng-model='selectedUsers' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items'/>
 ```
 ## Attributes
@@ -41,7 +41,7 @@ In your html markup write
 ## Collection structure
 
 Your collection can be implemented in three ways:
-1. Simple collection 
+#### Simple collection 
 ```javascript
 $scope.yourCollectionName = [{
 	thumbnailUrl: './image.jpg',
@@ -49,14 +49,14 @@ $scope.yourCollectionName = [{
 	subtitle: 'test@text.com'
 }]
 ```
-2. Collection with title and array of properties
+#### Collection with title and array of properties
 ```javascript
 $scope.yourCollectionName = [{
 	title: 'Some Title',
 	items: [{subtitle: 'test@text.com', thumbnailUrl: 'image.jpg'}]
 }]
 ```
-3. Simple collection with array of properties
+#### Simple collection with array of properties
 ```javascript
 $scope.yourCollectionName = [{
 	thumbnailUrl: './image.jpg',
@@ -66,5 +66,21 @@ $scope.yourCollectionName = [{
 }]
 ```
 If you don't have thumbnailUrl in items it will be taken from main object.
+Collection can have mixed structure. You can name your collection and properties as you like. Just don't forget to write these names to appropriate attributes in md-chips tag:
 
-Youc can name your collection and properties in any way. Don't forget to write these names to apprpriate attributes.
+```javascript
+$scope.myCol = [{
+	url: './image.jpg',
+	name: 'Some Title',
+	email: 'test@text.com'
+	list: [{email: 'test_two@text.com', url: 'image_two.jpg'}]
+},{
+	name: 'Another Title',
+	list: [{email: 'test@text.com', url: 'image.jpg'}]
+}];
+
+$scope.returnedValues = [];
+```
+```html
+<md-chips collection='myCol' ng-model='returnedValues' md-title='name' md-thumbnail='url' md-subtitle='email' md-item='list'/>
+```
