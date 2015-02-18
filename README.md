@@ -101,7 +101,7 @@ Feel free to open issues and send PRs.
 The MIT License (MIT)
 
 [![Binary Studio](http://www.binary-studio.com/wp-content/uploads/2014/11/logo.gif)](http://binary-studio.com)  
-Copyright (c) 2014 Rusinka Bogdan bogdan.rusinka@gmail.com
+Copyright (c) 2015 Rusinka Bogdan bogdan.rusinka@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
