@@ -230,5 +230,5 @@ input.chipsInput:focus {
 }
 
 .active {
-	background: lightgreen;
+	background: #ededed;
 }
