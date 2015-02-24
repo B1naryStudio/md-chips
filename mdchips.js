@@ -59,7 +59,7 @@ angular.module('mdChips', [])
 					if (event.target.value) {
 						scope.$apply(function(){
 							var	list = angular.element("<div id='chips-list' ng-show='true' ng-cloak> \
-															<div ng-repeat='item in innerCollection | filter:chipsText' class='chips-list-item' ng-click=addToInput(item) ng-class='{active: item.active}'> \
+															<div ng-repeat='item in (filteredCollection = (innerCollection | filter:chipsText))' class='chips-list-item' ng-click=addToInput(item) ng-class='{active: item.active}'> \
 																<div class='chips-item-wrapper'> \
 																	<div class='chips-image'> \
 																		<img ng-src='{{item[mdThumbnail]}}' ng-show='item[mdThumbnail] ? true : false'> \
@@ -173,7 +173,7 @@ angular.module('mdChips', [])
 					if (chipsList){
 						console.log(chipsList);
 						var active = -1;
-						scope.innerCollection.forEach(function(item, index){
+						scope.filteredCollection.forEach(function(item, index){
 							if(item.active){
 								active = index;
 							}
@@ -181,16 +181,16 @@ angular.module('mdChips', [])
 						switch(kEv.keyCode){
 							case 40:
 								if (active == -1){
-									scope.innerCollection[0].active = true;
+									scope.filteredCollection[0].active = true;
 									scope.$apply();
 								} else {
-									if (scope.innerCollection[active+1]){
-										scope.innerCollection[active].active = false;
-										scope.innerCollection[active+1].active = true;
+									if (scope.filteredCollection[active+1]){
+										scope.filteredCollection[active].active = false;
+										scope.filteredCollection[active+1].active = true;
 										scope.$apply();
 									} else {
-										scope.innerCollection[active].active = false;
-										scope.innerCollection[0].active = true;
+										scope.filteredCollection[active].active = false;
+										scope.filteredCollection[0].active = true;
 										scope.$apply();
 									}
 								}
@@ -198,16 +198,16 @@ angular.module('mdChips', [])
 								break;	
 							case 38:
 								if (active == -1){
-									scope.innerCollection[0].active = true;
+									scope.filteredCollection[0].active = true;
 									scope.$apply();
 								} else {
-									if (scope.innerCollection[active-1]){
-										scope.innerCollection[active].active = false;
-										scope.innerCollection[active-1].active = true;
+									if (scope.filteredCollection[active-1]){
+										scope.filteredCollection[active].active = false;
+										scope.filteredCollection[active-1].active = true;
 										scope.$apply();
 									} else {
-										scope.innerCollection[active].active = false;
-										scope.innerCollection[scope.innerCollection.length-1].active = true;
+										scope.filteredCollection[active].active = false;
+										scope.filteredCollection[scope.filteredCollection.length-1].active = true;
 										scope.$apply();
 									}
 								}
@@ -215,7 +215,7 @@ angular.module('mdChips', [])
 								break;
 							case 13:
 								if (active!==-1){
-									scope.addToInput(scope.innerCollection[active]);
+									scope.addToInput(scope.filteredCollection[active]);
 									scope.removeList();
 									scope.$apply();
 								} else if (scope.chipsText[scope.mdTitle] ){
