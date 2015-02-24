@@ -74,7 +74,7 @@
 		</div>
 		<div>
 			<h3>Returned values:</h3>
-			<div ng-repeat='user in selectedUsers track by $index' style="padding:10px; margin-bottom:10px" class="retval">
+			<div ng-repeat='user in selectedUsers track by $index' style="padding:10px; margin-bottom:10px" class="retval" ng-cloak>
 				<p><b>Title -</b> {{user.title}}</p>
 				<p><b>Subtitle -</b> {{user.subtitle}}</p>
 				<p><b>ThumbnailUrl -</b> {{user.thumbnailUrl}}</p>

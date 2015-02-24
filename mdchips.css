@@ -247,3 +247,7 @@ input.chipsInput:focus {
 #chips-list::-webkit-scrollbar-thumb:hover {  
     background-color: #aaa;  
 }  
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

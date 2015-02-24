@@ -4,7 +4,7 @@ angular.module('mdChips', [])
 		return {
 			restrict: 'E',
 			replace:true,
-			template: '<div class="md-chips"> \
+			template: '<div class="md-chips" ng-cloak> \
 							<div class="chips-input-field"> \
 								<div class="input-chips-elements"> \
 									<div ng-repeat="chips in ngModel track by $index" class="chips-mini-item"> \
@@ -58,7 +58,7 @@ angular.module('mdChips', [])
 					scope.clearActive();
 					if (event.target.value) {
 						scope.$apply(function(){
-							var	list = angular.element("<div id='chips-list' ng-show='true'> \
+							var	list = angular.element("<div id='chips-list' ng-show='true' ng-cloak> \
 															<div ng-repeat='item in innerCollection | filter:chipsText' class='chips-list-item' ng-click=addToInput(item) ng-class='{active: item.active}'> \
 																<div class='chips-item-wrapper'> \
 																	<div class='chips-image'> \
@@ -122,7 +122,7 @@ angular.module('mdChips', [])
 						chipsActive = element[0].querySelector('.chips-active');
 					var show = 	item[scope.mdThumbnail] ? true : false;
 					var thumb = item[scope.mdThumbnail]? item[scope.mdThumbnail] : '';
-					var htmlCode = '<div id ="chips-active-list"> \
+					var htmlCode = '<div id ="chips-active-list" ng-cloak> \
 										<div class="chips-active-main">  \
 											<div class="chips-active-img"> \
 												<img src="' + thumb + '" ng-show=' + show + ' /> \
@@ -130,7 +130,7 @@ angular.module('mdChips', [])
 											</div> \
 											<div class="boxclose" id="boxclose" ng-click=deleteChips(' + index + ')><a></a></div> \
 											<div class="chips-active-wrap"> \
-												<div class="chips-active-title">' + item[scope.mdTitle] + '</div> \
+												<div class="chips-active-title" >' + item[scope.mdTitle] + '</div> \
 												<p class="chips-active-description">' + item[scope.mdSubtitle] + '</p> \
 											</div> \
 										</div>';
@@ -214,9 +214,17 @@ angular.module('mdChips', [])
 								chipsList.querySelector('.active').scrollIntoView('0px');
 								break;
 							case 13:
-								scope.addToInput(scope.innerCollection[active]);
-								scope.removeList();
-								scope.$apply();
+								if (active!==-1){
+									scope.addToInput(scope.innerCollection[active]);
+									scope.removeList();
+									scope.$apply();
+								} else if (scope.chipsText[scope.mdTitle] ){
+									item = {};
+									item[scope.mdTitle] = scope.chipsText[scope.mdTitle];
+									item[scope.mdSubtitle] = '';
+									scope.addToInput(item);
+									scope.$apply();
+								}
 								break;
 							default:
 								break;
