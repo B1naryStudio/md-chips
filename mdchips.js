@@ -49,7 +49,7 @@ angular.module('mdChips', [])
 							return item;
 						}
 					}
-
+					item['active'] = false;
 					return item;
 				});
 
@@ -59,7 +59,7 @@ angular.module('mdChips', [])
 					if (event.target.value) {
 						scope.$apply(function(){
 							var	list = angular.element("<div id='chips-list' ng-show='true'> \
-															<div ng-repeat='item in innerCollection | filter:chipsText' class='chips-list-item' ng-click=addToInput(item)> \
+															<div ng-repeat='item in innerCollection | filter:chipsText' class='chips-list-item' ng-click=addToInput(item) ng-class='{active: item.active}'> \
 																<div class='chips-item-wrapper'> \
 																	<div class='chips-image'> \
 																		<img ng-src='{{item[mdThumbnail]}}' ng-show='item[mdThumbnail] ? true : false'> \
@@ -81,6 +81,7 @@ angular.module('mdChips', [])
 						self.removeList();
 					}
 				});
+			
 
 				$document.bind('click', function(evt){
 					scope.clearActive();
@@ -95,6 +96,11 @@ angular.module('mdChips', [])
 				});
 
 				scope.removeList = function(){
+					scope.innerCollection.forEach(function(item, index){
+							if(item.active){
+								item.active = false;
+							}
+					});
 					var chipsList = element[0].querySelector('#chips-list');
 					if (chipsList) {
 						chipsList.remove();
@@ -161,6 +167,63 @@ angular.module('mdChips', [])
 					
 
 				};
+
+				element.bind('keydown', function(kEv){
+					var chipsList = element[0].querySelector('#chips-list');
+					if (chipsList){
+						console.log(chipsList);
+						var active = -1;
+						scope.innerCollection.forEach(function(item, index){
+							if(item.active){
+								active = index;
+							}
+						});
+						switch(kEv.keyCode){
+							case 40:
+								if (active == -1){
+									scope.innerCollection[0].active = true;
+									scope.$apply();
+								} else {
+									if (scope.innerCollection[active+1]){
+										scope.innerCollection[active].active = false;
+										scope.innerCollection[active+1].active = true;
+										scope.$apply();
+									} else {
+										scope.innerCollection[active].active = false;
+										scope.innerCollection[0].active = true;
+										scope.$apply();
+									}
+								}
+								break;	
+							case 38:
+								if (active == -1){
+									scope.innerCollection[0].active = true;
+									scope.$apply();
+								} else {
+									if (scope.innerCollection[active-1]){
+										scope.innerCollection[active].active = false;
+										scope.innerCollection[active-1].active = true;
+										scope.$apply();
+									} else {
+										scope.innerCollection[active].active = false;
+										scope.innerCollection[scope.innerCollection.length-1].active = true;
+										scope.$apply();
+									}
+								}
+								break;
+							case 13:
+								scope.addToInput(scope.innerCollection[active]);
+								scope.removeList();
+								scope.$apply();
+								break;
+							default:
+								break;
+						}
+					} else {
+						console.log('Nothing happens');
+						return;
+					}
+				});
 
 				scope.deleteChips = function(index){
 					console.log("Ho", index);

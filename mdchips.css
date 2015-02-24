@@ -228,3 +228,7 @@ input.chipsInput:focus {
 	margin:16px;
 	background: #ccc;
 }
+
+.active {
+	background: lightgreen;
+}
