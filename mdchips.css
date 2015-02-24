@@ -230,5 +230,20 @@ input.chipsInput:focus {
 }
 
 .active {
-	background: #ededed;
+	background: #e8e8e8;
 }
+
+#chips-list::-webkit-scrollbar {  
+    width: 7px;
+}  
+#chips-list::-webkit-scrollbar-track {  
+    background-color: transparent;  
+}  
+#chips-list::-webkit-scrollbar-thumb {  
+    background-color: rgba(200,200,200, 0.5);  
+    opacity: 0.5;
+    border-radius: 5px;
+}  
+#chips-list::-webkit-scrollbar-thumb:hover {  
+    background-color: #aaa;  
+}  
