@@ -194,6 +194,7 @@ angular.module('mdChips', [])
 										scope.$apply();
 									}
 								}
+								chipsList.querySelector('.active').scrollIntoView('0px');
 								break;	
 							case 38:
 								if (active == -1){
@@ -210,6 +211,7 @@ angular.module('mdChips', [])
 										scope.$apply();
 									}
 								}
+								chipsList.querySelector('.active').scrollIntoView('0px');
 								break;
 							case 13:
 								scope.addToInput(scope.innerCollection[active]);
