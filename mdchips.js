@@ -1,6 +1,31 @@
 angular.module('mdChips', [])
-	.directive('mdChips', ['$compile','$timeout', '$document', function($compile, $timeout, $document){
-		
+	.factory('chipsService', [function(){
+		return {
+			helper: function(scope, collection, active, rule, chipsList){
+				if (active == -1){
+					collection[0].active = true;
+				} else {
+					if (collection[active+rule]){
+						collection[active].active = false;
+						collection[active+rule].active = true;
+					} else {
+						collection[active].active = false;
+						var index = rule == 1 ? 0 : (collection.length-1);
+						collection[index].active = true;
+					}
+				}
+				scope.$apply();
+				chipsList.querySelector('.active').scrollIntoView('0px');
+			},
+			nextActive: function(scope, collection, active, chipsList){
+				this.helper(scope, collection, active, 1, chipsList);
+			},
+			prevActive: function(scope, collection, active, chipsList){
+				this.helper(scope, collection, active, -1, chipsList);
+			}
+		}
+	}])
+	.directive('mdChips', ['$compile','$timeout', '$document', 'chipsService', function($compile, $timeout, $document, chipsService){
 		return {
 			restrict: 'E',
 			replace:true,
@@ -85,7 +110,9 @@ angular.module('mdChips', [])
 
 				$document.bind('click', function(evt){
 					scope.clearActive();
-					scope.chipsText[scope.mdTitle] = '';
+					if(scope.chipsText){
+						scope.chipsText[scope.mdTitle] = '';
+					}
 					scope.removeList();
 					scope.$apply();
 				});
@@ -96,7 +123,7 @@ angular.module('mdChips', [])
 				});
 
 				scope.removeList = function(){
-					scope.innerCollection.forEach(function(item, index){
+					this.innerCollection.forEach(function(item, index){
 							if(item.active){
 								item.active = false;
 							}
@@ -171,7 +198,6 @@ angular.module('mdChips', [])
 				element.bind('keydown', function(kEv){
 					var chipsList = element[0].querySelector('#chips-list');
 					if (chipsList){
-						console.log(chipsList);
 						var active = -1;
 						scope.filteredCollection.forEach(function(item, index){
 							if(item.active){
@@ -180,38 +206,10 @@ angular.module('mdChips', [])
 						});
 						switch(kEv.keyCode){
 							case 40:
-								if (active == -1){
-									scope.filteredCollection[0].active = true;
-									scope.$apply();
-								} else {
-									if (scope.filteredCollection[active+1]){
-										scope.filteredCollection[active].active = false;
-										scope.filteredCollection[active+1].active = true;
-										scope.$apply();
-									} else {
-										scope.filteredCollection[active].active = false;
-										scope.filteredCollection[0].active = true;
-										scope.$apply();
-									}
-								}
-								chipsList.querySelector('.active').scrollIntoView('0px');
+								chipsService.nextActive(scope, scope.filteredCollection, active, chipsList);
 								break;	
 							case 38:
-								if (active == -1){
-									scope.filteredCollection[0].active = true;
-									scope.$apply();
-								} else {
-									if (scope.filteredCollection[active-1]){
-										scope.filteredCollection[active].active = false;
-										scope.filteredCollection[active-1].active = true;
-										scope.$apply();
-									} else {
-										scope.filteredCollection[active].active = false;
-										scope.filteredCollection[scope.filteredCollection.length-1].active = true;
-										scope.$apply();
-									}
-								}
-								chipsList.querySelector('.active').scrollIntoView('0px');
+								chipsService.prevActive(scope, scope.filteredCollection, active, chipsList);
 								break;
 							case 13:
 								if (active!==-1){
@@ -230,13 +228,11 @@ angular.module('mdChips', [])
 								break;
 						}
 					} else {
-						console.log('Nothing happens');
 						return;
 					}
 				});
 
 				scope.deleteChips = function(index){
-					console.log("Ho", index);
 					scope.ngModel.splice(index,1);
 					this.clearActive();
 				};
