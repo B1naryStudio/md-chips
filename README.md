@@ -91,6 +91,17 @@ $scope.returnedValues = [];
 ```html
 <md-chips collection='myCol' ng-model='returnedValues' md-title='name' md-thumbnail='url' md-subtitle='email' md-item='list'/>
 ```
+
+## Changelog
+
+### 0.3.0 (2015-02-28)
+
+- add possibility to select items from list with keyboard
+- add possibility to enter own items
+- fix input size while entering data
+- fix displaying long names
+- fix styles for items list
+
 ##Created by [BogdanRusinka](https://github.com/BogdanRusinka) 
 
 ##Contributing
