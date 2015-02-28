@@ -94,7 +94,7 @@ $scope.returnedValues = [];
 
 ## Changelog
 
-### 0.3.0 (2015-02-28)
+### 0.2.0 (2015-02-28)
 
 - add possibility to select items from list with keyboard
 - add possibility to enter own items
