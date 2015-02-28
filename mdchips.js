@@ -1,10 +1,35 @@
 angular.module('mdChips', [])
-	.directive('mdChips', ['$compile','$timeout', '$document', function($compile, $timeout, $document){
-		
+	.factory('chipsService', [function(){
+		return {
+			helper: function(scope, collection, active, rule, chipsList){
+				if (active == -1){
+					collection[0].active = true;
+				} else {
+					if (collection[active+rule]){
+						collection[active].active = false;
+						collection[active+rule].active = true;
+					} else {
+						collection[active].active = false;
+						var index = rule == 1 ? 0 : (collection.length-1);
+						collection[index].active = true;
+					}
+				}
+				scope.$apply();
+				chipsList.querySelector('.active').scrollIntoView('0px');
+			},
+			nextActive: function(scope, collection, active, chipsList){
+				this.helper(scope, collection, active, 1, chipsList);
+			},
+			prevActive: function(scope, collection, active, chipsList){
+				this.helper(scope, collection, active, -1, chipsList);
+			}
+		}
+	}])
+	.directive('mdChips', ['$compile','$timeout', '$document', 'chipsService', function($compile, $timeout, $document, chipsService){
 		return {
 			restrict: 'E',
 			replace:true,
-			template: '<div class="md-chips"> \
+			template: '<div class="md-chips" ng-cloak> \
 							<div class="chips-input-field"> \
 								<div class="input-chips-elements"> \
 									<div ng-repeat="chips in ngModel track by $index" class="chips-mini-item"> \
@@ -49,7 +74,7 @@ angular.module('mdChips', [])
 							return item;
 						}
 					}
-
+					item['active'] = false;
 					return item;
 				});
 
@@ -58,8 +83,8 @@ angular.module('mdChips', [])
 					scope.clearActive();
 					if (event.target.value) {
 						scope.$apply(function(){
-							var	list = angular.element("<div id='chips-list' ng-show='true'> \
-															<div ng-repeat='item in innerCollection | filter:chipsText' class='chips-list-item' ng-click=addToInput(item)> \
+							var	list = angular.element("<div id='chips-list' ng-show='true' ng-cloak> \
+															<div ng-repeat='item in (filteredCollection = (innerCollection | filter:chipsText))' class='chips-list-item' ng-click=addToInput(item) ng-class='{active: item.active}'> \
 																<div class='chips-item-wrapper'> \
 																	<div class='chips-image'> \
 																		<img ng-src='{{item[mdThumbnail]}}' ng-show='item[mdThumbnail] ? true : false'> \
@@ -81,10 +106,13 @@ angular.module('mdChips', [])
 						self.removeList();
 					}
 				});
+			
 
 				$document.bind('click', function(evt){
 					scope.clearActive();
-					scope.chipsText[scope.mdTitle] = '';
+					if(scope.chipsText){
+						scope.chipsText[scope.mdTitle] = '';
+					}
 					scope.removeList();
 					scope.$apply();
 				});
@@ -95,6 +123,11 @@ angular.module('mdChips', [])
 				});
 
 				scope.removeList = function(){
+					this.innerCollection.forEach(function(item, index){
+							if(item.active){
+								item.active = false;
+							}
+					});
 					var chipsList = element[0].querySelector('#chips-list');
 					if (chipsList) {
 						chipsList.remove();
@@ -116,7 +149,7 @@ angular.module('mdChips', [])
 						chipsActive = element[0].querySelector('.chips-active');
 					var show = 	item[scope.mdThumbnail] ? true : false;
 					var thumb = item[scope.mdThumbnail]? item[scope.mdThumbnail] : '';
-					var htmlCode = '<div id ="chips-active-list"> \
+					var htmlCode = '<div id ="chips-active-list" ng-cloak> \
 										<div class="chips-active-main">  \
 											<div class="chips-active-img"> \
 												<img src="' + thumb + '" ng-show=' + show + ' /> \
@@ -124,7 +157,7 @@ angular.module('mdChips', [])
 											</div> \
 											<div class="boxclose" id="boxclose" ng-click=deleteChips(' + index + ')><a></a></div> \
 											<div class="chips-active-wrap"> \
-												<div class="chips-active-title">' + item[scope.mdTitle] + '</div> \
+												<div class="chips-active-title" >' + item[scope.mdTitle] + '</div> \
 												<p class="chips-active-description">' + item[scope.mdSubtitle] + '</p> \
 											</div> \
 										</div>';
@@ -162,8 +195,46 @@ angular.module('mdChips', [])
 
 				};
 
+				element.bind('keydown', function(kEv){
+					var chipsList = element[0].querySelector('#chips-list');
+					if (chipsList){
+						var active = -1;
+						scope.filteredCollection.forEach(function(item, index){
+							if(item.active){
+								active = index;
+							}
+						});
+						switch(kEv.keyCode){
+							case 40:
+								chipsService.nextActive(scope, scope.filteredCollection, active, chipsList);
+								break;	
+							case 38:
+								chipsService.prevActive(scope, scope.filteredCollection, active, chipsList);
+								break;
+							case 13:
+								if (active!==-1){
+									scope.addToInput(scope.filteredCollection[active]);
+									scope.removeList();
+									kEv.target.style.width = 20;
+									scope.$apply();
+								} else if (scope.chipsText[scope.mdTitle] ){
+									item = {};
+									item[scope.mdTitle] = scope.chipsText[scope.mdTitle]; 
+									item[scope.mdSubtitle] = scope.chipsText[scope.mdTitle];
+									scope.addToInput(item);
+									kEv.target.style.width = 20;
+									scope.$apply();
+								}
+								break;
+							default:
+								break;
+						}
+					} else {
+						return;
+					}
+				});
+
 				scope.deleteChips = function(index){
-					console.log("Ho", index);
 					scope.ngModel.splice(index,1);
 					this.clearActive();
 				};
@@ -171,6 +242,10 @@ angular.module('mdChips', [])
 				scope.clearPrev = function(event){
 					if(event.keyCode === 8 && event.target.value === '' && scope.ngModel.length !== 0){
 						scope.ngModel.pop();
+					}
+					if (scope.chipsText){
+						var length = scope.chipsText[scope.mdTitle].length * 15 + 15;
+						event.target.style.width = length ? length : 20;
 					}
 					return true;
 				};
@@ -197,7 +272,7 @@ angular.module('mdChips', [])
 					var old = {};
 					old.url = this.ngModel[index][scope.mdThumbnail];
 					old.subtitle = this.ngModel[index][scope.mdSubtitle];
-					if (url && url !== 'undefined'){
+					if (url && url !== 'undefined'){	
 						this.ngModel[index][scope.mdThumbnail] = url;
 					} else {
 						delete this.ngModel[index][scope.mdThumbnail];
