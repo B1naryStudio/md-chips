@@ -215,12 +215,14 @@ angular.module('mdChips', [])
 								if (active!==-1){
 									scope.addToInput(scope.filteredCollection[active]);
 									scope.removeList();
+									kEv.target.style.width = 20;
 									scope.$apply();
 								} else if (scope.chipsText[scope.mdTitle] ){
 									item = {};
 									item[scope.mdTitle] = scope.chipsText[scope.mdTitle]; 
 									item[scope.mdSubtitle] = scope.chipsText[scope.mdTitle];
 									scope.addToInput(item);
+									kEv.target.style.width = 20;
 									scope.$apply();
 								}
 								break;
