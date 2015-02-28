@@ -15,7 +15,7 @@ angular.module('mdChips', [])
 					}
 				}
 				scope.$apply();
-				chipsList.querySelector('.active').scrollIntoView('0px');
+				chipsList.querySelector('.active').scrollIntoViewIfNeeded('0px');
 			},
 			nextActive: function(scope, collection, active, chipsList){
 				this.helper(scope, collection, active, 1, chipsList);
