@@ -218,8 +218,8 @@ angular.module('mdChips', [])
 									scope.$apply();
 								} else if (scope.chipsText[scope.mdTitle] ){
 									item = {};
-									item[scope.mdTitle] = scope.chipsText[scope.mdTitle];
-									item[scope.mdSubtitle] = '';
+									item[scope.mdTitle] = scope.chipsText[scope.mdTitle]; 
+									item[scope.mdSubtitle] = scope.chipsText[scope.mdTitle];
 									scope.addToInput(item);
 									scope.$apply();
 								}
@@ -240,6 +240,10 @@ angular.module('mdChips', [])
 				scope.clearPrev = function(event){
 					if(event.keyCode === 8 && event.target.value === '' && scope.ngModel.length !== 0){
 						scope.ngModel.pop();
+					}
+					if (scope.chipsText){
+						var length = scope.chipsText[scope.mdTitle].length * 15 + 15;
+						event.target.style.width = length ? length : 20;
 					}
 					return true;
 				};
@@ -266,7 +270,7 @@ angular.module('mdChips', [])
 					var old = {};
 					old.url = this.ngModel[index][scope.mdThumbnail];
 					old.subtitle = this.ngModel[index][scope.mdSubtitle];
-					if (url && url !== 'undefined'){
+					if (url && url !== 'undefined'){	
 						this.ngModel[index][scope.mdThumbnail] = url;
 					} else {
 						delete this.ngModel[index][scope.mdThumbnail];

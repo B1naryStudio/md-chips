@@ -25,6 +25,9 @@ angular.module('mdChipsDemo', ['mdChips'])
 		},{
 			title: 'Angelina Jolie',
 			subtitle: 'jolie@gmail.com'
+		},{
+			title: 'Contact with a veru long name to show',
+			subtitle: 'contactwithverylongemail@gmail.com really'
 		}];
 
 		$scope.selectedUsers = [];

@@ -25,6 +25,8 @@
 	font-family: Arial;
 	color: #797979;
 	border-bottom: 1px solid #e7e7e7;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .chips-title, .chips-active-title {
@@ -34,8 +36,23 @@
 	padding-top: 16px;
 }
 
+.chips-title {
+	height: 20px;
+	display: inherit;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	padding-right: 15px;
+}
+
 .chips-active-title {
-	color:white;
+	color: white;
+	height: 20px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 100%;
 }
 
 .chips-description, .chips-active-description {
@@ -43,10 +60,23 @@
 	font-family: 'RobotoRegular', Arial;
 	font-size: 14px;
 	padding-bottom: 16px;
+	padding-right: 15px;
+}
+
+.chips-description {
+	display: inherit;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .chips-active-description {
 	color: #77D9E7;
+	height: 20px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 100%;
 }
 
 .chips-mini {
@@ -78,11 +108,18 @@
 	font-family: 'RobotoRegular', Arial;
 	font-size: 14px;
 	padding: 7px 12px 7px 8px;
+	height: 16px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 80%;
 }
 
 .chipsInput {
+
 	border: 1px solid rgba(0,0,0,0);
 	line-height: 40px;
+	max-width: 100%;
 }
 
 input.chipsInput:focus {
@@ -99,6 +136,7 @@ input.chipsInput:focus {
 .chips-mini-item {
 	display: inline-block;
 	float:left;
+	max-width: 100%;
 }
 
 .chips-mini:hover {
@@ -107,6 +145,12 @@ input.chipsInput:focus {
 	cursor: pointer;
 }
 
+.chips-mini {
+	max-width: 100%;
+	position: relative;
+}
+
+
 .chips-mini:active {
 	background: #EDEDED;
 	box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.3);
@@ -114,7 +158,7 @@ input.chipsInput:focus {
 
 .chipsInput {
 	height: 52px;
-	width:30px;
+	width:20px;
 	float: left;
 }
 
