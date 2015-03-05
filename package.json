@@ -1,0 +1,24 @@
+{
+  "name": "md-chips",
+  "version": "0.0.1",
+  "description": "Material design Chips component Angular directive",
+  "main": "mdchips.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/B1naryStudio/md-chips.git"
+  },
+  "keywords": [
+    "angular",
+    "chips",
+    "directive",
+    "material"
+  ],
+  "author": "Bogdan Rusinka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/B1naryStudio/md-chips/issues"
+  }
+}

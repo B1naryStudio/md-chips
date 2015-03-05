@@ -1,0 +1,27 @@
+{
+  "name": "md-chips",
+  "version": "0.0.1",
+  "homepage": "https://github.com/B1naryStudio/md-chips",
+  "authors": [
+    "BogdanRusinka <rusinka.bogdan@gmail.com>"
+  ],
+  "description": "Material design Chips component Angular directive",
+  "main": "mdchips.js",
+  "keywords": [
+    "angular",
+    "material",
+    "chips",
+    "directive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.13"
+  }
+}
