@@ -130,7 +130,7 @@ angular.module('mdChips', [])
 					});
 					var chipsList = element[0].querySelector('#chips-list');
 					if (chipsList) {
-						chipsList.remove();
+						chipsList.parentNode.removeChild(chipsList);
 					}
 				};
 
