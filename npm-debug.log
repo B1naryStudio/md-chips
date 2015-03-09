@@ -1,0 +1,71 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish' ]
+2 info using npm@1.4.23
+3 info using node@v0.10.31
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose publish [ '.' ]
+6 verbose cache add [ '.', null ]
+7 verbose cache add name=undefined spec="." args=[".",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: '.',
+8 verbose parsed url   path: '.',
+8 verbose parsed url   href: '.' }
+9 silly lockFile 3a52ce78- .
+10 verbose lock . C:\Users\Bogdan\AppData\Roaming\npm-cache\3a52ce78-.lock
+11 verbose tar pack [ 'C:\\Users\\Bogdan\\AppData\\Roaming\\npm-cache\\md-chips\\0.0.1\\package.tgz',
+11 verbose tar pack   '.' ]
+12 verbose tarball C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz
+13 verbose folder .
+14 info prepublish md-chips@0.0.1
+15 silly lockFile 1f1177db-tar tar://.
+16 verbose lock tar://. C:\Users\Bogdan\AppData\Roaming\npm-cache\1f1177db-tar.lock
+17 silly lockFile f614e8bb-cache-md-chips-0-0-1-package-tgz tar://C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz
+18 verbose lock tar://C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz C:\Users\Bogdan\AppData\Roaming\npm-cache\f614e8bb-cache-md-chips-0-0-1-package-tgz.lock
+19 silly lockFile 1f1177db-tar tar://.
+20 silly lockFile 1f1177db-tar tar://.
+21 silly lockFile f614e8bb-cache-md-chips-0-0-1-package-tgz tar://C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz
+22 silly lockFile f614e8bb-cache-md-chips-0-0-1-package-tgz tar://C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz
+23 silly lockFile 7352724e-npm-cache-md-chips-0-0-1-package C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package
+24 verbose lock C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package C:\Users\Bogdan\AppData\Roaming\npm-cache\7352724e-npm-cache-md-chips-0-0-1-package.lock
+25 silly lockFile 7352724e-npm-cache-md-chips-0-0-1-package C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package
+26 silly lockFile 7352724e-npm-cache-md-chips-0-0-1-package C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package
+27 silly lockFile 3a52ce78- .
+28 silly lockFile 3a52ce78- .
+29 silly publish { name: 'md-chips',
+29 silly publish   version: '0.0.1',
+29 silly publish   description: 'Material design Chips component Angular directive',
+29 silly publish   main: 'mdchips.js',
+29 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+29 silly publish   repository:
+29 silly publish    { type: 'git',
+29 silly publish      url: 'git://github.com/B1naryStudio/md-chips.git' },
+29 silly publish   keywords: [ 'angular', 'chips', 'directive', 'material' ],
+29 silly publish   author: { name: 'Bogdan Rusinka' },
+29 silly publish   license: 'MIT',
+29 silly publish   bugs: { url: 'https://github.com/B1naryStudio/md-chips/issues' },
+29 silly publish   gitHead: '1777b614ca2c5e6b0e0ced1ff884adf626a2f6ee',
+29 silly publish   readme: '# md-chips\r\nAngular input-chips directive following Google Material Design guidelines. \r\nLive [Demo](http://b1narystudio.github.io/md-chips/)\r\n![alt text](https://github.com/B1naryStudio/md-chips/blob/master/title.jpg "Chips Example")\r\n\r\n## Installing\r\nYou can install it via npm\r\n```shell\r\nnpm install md-chips\r\n```\r\nor via bower\r\n```shell\r\nbower install md-chips\r\n```\r\n\r\n## Loading\r\n\r\nIn your html code include mdchips.js and md-chips.css\r\n\r\n```html\r\n<link rel="stylesheet" type="text/css" href="mdchips.css">\r\n\r\n<script src="mdchips.js"></script>\r\n```\r\n\r\nThen you only need to require mdChips module as a dependency \r\n\r\n```javascript\r\nangular.module(\'myModule\', [\'mdChips\'])\r\n```\r\n\r\n## Usage\r\n\r\nIn your html markup write\r\n\r\n```html\r\n<md-chips collection=\'itemsCollection\' ng-model=\'selectedUsers\' md-title=\'title\' md-thumbnail=\'thumbnailUrl\' md-subtitle=\'subtitle\' md-item=\'items\'/>\r\n```\r\n## Attributes\r\n\r\n* **collection** - (required) Its value is collection of elements (users)\r\n* **ng-model** - (required) Array for selected items to return\r\n* **md-title** - (required) Name of the title field in your collection\r\n* **md-thumbnail** - (required) Name of the url-thumbnail field in your collection\r\n* **md-subtitle** - (required) Name of the subtitle field in your collection\r\n* **items**  - (optional) Name of the field in your collection with additional thumbnails and subtitles\r\n\r\n## Collection structure\r\n\r\nYour collection can be implemented in three ways:\r\n#### Simple collection \r\n```javascript\r\n$scope.yourCollectionName = [{\r\n\tthumbnailUrl: \'./image.jpg\',\r\n\ttitle: \'Some Title\',\r\n\tsubtitle: \'test@text.com\'\r\n}]\r\n```\r\n#### Collection with title and array of properties\r\n```javascript\r\n$scope.yourCollectionName = [{\r\n\ttitle: \'Some Title\',\r\n\titems: [{subtitle: \'test@text.com\', thumbnailUrl: \'image.jpg\'}]\r\n}]\r\n```\r\n#### Simple collection with array of properties\r\n```javascript\r\n$scope.yourCollectionName = [{\r\n\tthumbnailUrl: \'./image.jpg\',\r\n\ttitle: \'Some Title\',\r\n\tsubtitle: \'test@text.com\'\r\n\titems: [{subtitle: \'test_two@text.com\', thumbnailUrl: \'image_two.jpg\'}]\r\n}]\r\n```\r\nIf you don\'t have thumbnailUrl in items it will be taken from main object.\r\nCollection can have mixed structure. You can name your collection and properties as you like. Just don\'t forget to write these names to appropriate attributes in md-chips tag:\r\n\r\n```javascript\r\n$scope.myCol = [{\r\n\turl: \'./image.jpg\',\r\n\tname: \'Some Title\',\r\n\temail: \'test@text.com\'\r\n\tlist: [{email: \'test_two@text.com\', url: \'image_two.jpg\'}]\r\n},{\r\n\tname: \'Another Title\',\r\n\tlist: [{email: \'test@text.com\', url: \'image.jpg\'}]\r\n}];\r\n\r\n$scope.returnedValues = [];\r\n```\r\n```html\r\n<md-chips collection=\'myCol\' ng-model=\'returnedValues\' md-title=\'name\' md-thumbnail=\'url\' md-subtitle=\'email\' md-item=\'list\'/>\r\n```\r\n\r\n## Changelog\r\n\r\n### 0.2.0 (2015-02-28)\r\n\r\n- add possibility to select items from list with keyboard\r\n- add possibility to enter own items\r\n- fix input size while entering data\r\n- fix displaying long names\r\n- fix styles for items list\r\n\r\n##Created by [BogdanRusinka](https://github.com/BogdanRusinka) \r\n\r\n##Contributing\r\nFeel free to open issues and send PRs. \r\n\r\n## License\r\n\r\nThe MIT License (MIT)\r\n\r\n[![Binary Studio](http://www.binary-studio.com/wp-content/uploads/2014/11/logo.gif)](http://binary-studio.com)  \r\nCopyright (c) 2015 Rusinka Bogdan bogdan.rusinka@gmail.com\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the "Software"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in\r\nall copies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\r\nTHE SOFTWARE.\r\n',
+29 silly publish   readmeFilename: 'README.md',
+29 silly publish   homepage: 'https://github.com/B1naryStudio/md-chips',
+29 silly publish   _id: 'md-chips@0.0.1',
+29 silly publish   _shasum: '465e35874c7cfaf797a417244905ac61d42a38ee',
+29 silly publish   _from: '.' }
+30 error need auth auth and email required for publishing
+30 error need auth You need to authorize this machine using `npm adduser`
+31 error System Windows_NT 6.2.9200
+32 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "publish"
+33 error cwd C:\Users\Bogdan\md-chips
+34 error node -v v0.10.31
+35 error npm -v 1.4.23
+36 error code ENEEDAUTH
+37 verbose exit [ 1, true ]
