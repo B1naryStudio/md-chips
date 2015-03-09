@@ -2,9 +2,9 @@ angular.module('mdChips', [])
 	.factory('chipsService', [function(){
 		return {
 			helper: function(scope, collection, active, rule, chipsList){
-				if (active == -1){
+				if (active == -1 && collection.length > 0){
 					collection[0].active = true;
-				} else {
+				} else if (collection.length > 0){
 					if (collection[active+rule]){
 						collection[active].active = false;
 						collection[active+rule].active = true;
@@ -15,7 +15,8 @@ angular.module('mdChips', [])
 					}
 				}
 				scope.$apply();
-				chipsList.querySelector('.active').scrollIntoViewIfNeeded('0px');
+				if (collection.length > 0)
+					chipsList.querySelector('.active').scrollIntoView({block: "start", behavior: "smooth"});
 			},
 			nextActive: function(scope, collection, active, chipsList){
 				this.helper(scope, collection, active, 1, chipsList);
