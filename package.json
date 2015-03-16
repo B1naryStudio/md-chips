@@ -1,6 +1,6 @@
 {
   "name": "md-chips",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Material design Chips component Angular directive",
   "main": "mdchips.js",
   "scripts": {
