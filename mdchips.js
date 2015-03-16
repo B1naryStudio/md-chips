@@ -233,7 +233,7 @@ angular.module('mdChips', [])
 					} else {
 						return;
 					}
-				});
+				}); 
 
 				scope.deleteChips = function(index){
 					scope.ngModel.splice(index,1);
