@@ -1,37 +1,46 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish', './' ]
-2 info using npm@2.0.0
-3 info using node@v0.11.14
-4 verbose publish [ './' ]
-5 verbose cache add [ './', null ]
-6 verbose cache add spec="./" args=["./",null]
-7 verbose parsed spec { raw: './',
-7 verbose parsed spec   scope: null,
-7 verbose parsed spec   name: null,
-7 verbose parsed spec   rawSpec: './',
-7 verbose parsed spec   spec: '/home/bogdan/md-chips',
-7 verbose parsed spec   type: 'local' }
-8 verbose cache add local package /home/bogdan/md-chips
-9 silly lockFile 0ee6c175- ./
-10 verbose lock ./ /home/bogdan/.npm/0ee6c175-.lock
-11 verbose tar pack [ '/home/bogdan/.npm/md-chips/0.0.1/package.tgz', './' ]
-12 verbose tarball /home/bogdan/.npm/md-chips/0.0.1/package.tgz
-13 verbose folder ./
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish' ]
+2 info using npm@1.4.23
+3 info using node@v0.10.31
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose publish [ '.' ]
+6 verbose cache add [ '.', null ]
+7 verbose cache add name=undefined spec="." args=[".",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: '.',
+8 verbose parsed url   path: '.',
+8 verbose parsed url   href: '.' }
+9 silly lockFile 3a52ce78- .
+10 verbose lock . C:\Users\Bogdan\AppData\Roaming\npm-cache\3a52ce78-.lock
+11 verbose tar pack [ 'C:\\Users\\Bogdan\\AppData\\Roaming\\npm-cache\\md-chips\\0.0.1\\package.tgz',
+11 verbose tar pack   '.' ]
+12 verbose tarball C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz
+13 verbose folder .
 14 info prepublish md-chips@0.0.1
-15 silly lockFile 04cb2bca-tar tar://./
-16 verbose lock tar://./ /home/bogdan/.npm/04cb2bca-tar.lock
-17 silly lockFile 85f861cf-n-npm-md-chips-0-0-1-package-tgz tar:///home/bogdan/.npm/md-chips/0.0.1/package.tgz
-18 verbose lock tar:///home/bogdan/.npm/md-chips/0.0.1/package.tgz /home/bogdan/.npm/85f861cf-n-npm-md-chips-0-0-1-package-tgz.lock
-19 silly lockFile 04cb2bca-tar tar://./
-20 silly lockFile 04cb2bca-tar tar://./
-21 silly lockFile 85f861cf-n-npm-md-chips-0-0-1-package-tgz tar:///home/bogdan/.npm/md-chips/0.0.1/package.tgz
-22 silly lockFile 85f861cf-n-npm-md-chips-0-0-1-package-tgz tar:///home/bogdan/.npm/md-chips/0.0.1/package.tgz
-23 silly lockFile cc498541-ogdan-npm-md-chips-0-0-1-package /home/bogdan/.npm/md-chips/0.0.1/package
-24 verbose lock /home/bogdan/.npm/md-chips/0.0.1/package /home/bogdan/.npm/cc498541-ogdan-npm-md-chips-0-0-1-package.lock
-25 silly lockFile cc498541-ogdan-npm-md-chips-0-0-1-package /home/bogdan/.npm/md-chips/0.0.1/package
-26 silly lockFile cc498541-ogdan-npm-md-chips-0-0-1-package /home/bogdan/.npm/md-chips/0.0.1/package
-27 silly lockFile 0ee6c175- ./
-28 silly lockFile 0ee6c175- ./
+15 silly lockFile 1f1177db-tar tar://.
+16 verbose lock tar://. C:\Users\Bogdan\AppData\Roaming\npm-cache\1f1177db-tar.lock
+17 silly lockFile f614e8bb-cache-md-chips-0-0-1-package-tgz tar://C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz
+18 verbose lock tar://C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz C:\Users\Bogdan\AppData\Roaming\npm-cache\f614e8bb-cache-md-chips-0-0-1-package-tgz.lock
+19 silly lockFile 1f1177db-tar tar://.
+20 silly lockFile 1f1177db-tar tar://.
+21 silly lockFile f614e8bb-cache-md-chips-0-0-1-package-tgz tar://C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz
+22 silly lockFile f614e8bb-cache-md-chips-0-0-1-package-tgz tar://C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package.tgz
+23 silly lockFile 7352724e-npm-cache-md-chips-0-0-1-package C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package
+24 verbose lock C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package C:\Users\Bogdan\AppData\Roaming\npm-cache\7352724e-npm-cache-md-chips-0-0-1-package.lock
+25 silly lockFile 7352724e-npm-cache-md-chips-0-0-1-package C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package
+26 silly lockFile 7352724e-npm-cache-md-chips-0-0-1-package C:\Users\Bogdan\AppData\Roaming\npm-cache\md-chips\0.0.1\package
+27 silly lockFile 3a52ce78- .
+28 silly lockFile 3a52ce78- .
 29 silly publish { name: 'md-chips',
 29 silly publish   version: '0.0.1',
 29 silly publish   description: 'Material design Chips component Angular directive',

@@ -103,7 +103,7 @@
 }
 
 .chips-mini-title {
-	float:left;
+	float: none;
 	display: inline-block;
 	font-family: 'RobotoRegular', Arial;
 	font-size: 14px;
