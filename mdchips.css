@@ -129,6 +129,10 @@ input.chipsInput:focus {
     outline: none;
 }
 
+input.chipsInput[type="text"]:disabled {
+    background: #fff !important;
+}
+
 .chips-input-field {
 	min-height: 30px;
 }
@@ -180,6 +184,16 @@ input.chipsInput:focus {
 	overflow: hidden;
 	display: block;
 	height: 72px;
+}
+
+.disabled-chips {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 0;
 }
 
 
