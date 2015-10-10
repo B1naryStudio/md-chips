@@ -34,7 +34,7 @@ angular.module('myModule', ['mdChips'])
 In your html markup write
 
 ```html
-<md-chips collection='itemsCollection' ng-model='selectedUsers' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items'/>
+<md-chips collection='itemsCollection' ng-model='selectedUsers' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items' disabled='false'/>
 ```
 ## Attributes
 
@@ -44,6 +44,7 @@ In your html markup write
 * **md-thumbnail** - (required) Name of the url-thumbnail field in your collection
 * **md-subtitle** - (required) Name of the subtitle field in your collection
 * **items**  - (optional) Name of the field in your collection with additional thumbnails and subtitles
+* **disabled** - (optional) Allows to disable chips component
 
 ## Collection structure
 
@@ -93,6 +94,10 @@ $scope.returnedValues = [];
 ```
 
 ## Changelog
+
+### 0.2.2 (2015-10-11)
+
+- add possibility to disable component
 
 ### 0.2.0 (2015-02-28)
 
