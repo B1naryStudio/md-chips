@@ -43,7 +43,7 @@ angular.module('mdChips', [])
 										</div> \
 									</div> \
 									<div class="chips-active" ng-style="{top: ytop}" ng-model="ytop" ng-click="closeActive($event)"></div> \
-									<input type="text" ng-model="chipsText[mdTitle]" ng-focus="clearActive()" ng-keydown="clearPrev($event)" class="chipsInput"/> \
+									<input type="text" ng-model="chipsText[mdTitle]" ng-focus="clearActive()" ng-keydown="clearPrev($event)" ng-click="checkDisabled($event)" class="chipsInput"/> \
 								</div> \
 							</div> \
 						</div>',
@@ -55,10 +55,20 @@ angular.module('mdChips', [])
 				mdItem: '@',
 				mdTitle: '@',
 				mdThumbnail: '@',
-				mdSubtitle: '@'
+				mdSubtitle: '@',
+				disabled: '=',
+				unique: '='
 			},
 			link: function (scope, element, attrs) {
 				scope.ytop = '10px';
+
+				scope.$watch("disabled",function() {
+		            if (scope.disabled){
+		            	element[0].className += ' md-chips-disabled';
+		            } else {
+		            	element[0].className = element[0].className.replace(' md-chips-disabled', '');
+		            }
+		        });
 
 				scope.innerCollection = scope.collection.map(function(item){
 					if (!item[scope.mdTitle]){ 
@@ -119,9 +129,26 @@ angular.module('mdChips', [])
 				});
 
 				element.bind('click', function(evt){
+					if (scope.disabled){
+						evt.stopPropagation();
+						evt.stopImmediatePropagation();
+						evt.preventDefault();
+						element.find('input')[0].disabled = true;
+						return;
+					}
+					element.find('input')[0].disabled = false;
 					evt.stopPropagation();
 					element[0].querySelector('.chipsInput').focus();
 				});
+
+				scope.checkDisabled = function(evt){
+					if (scope.disabled){
+						evt.stopPropagation();
+						evt.stopImmediatePropagation();
+						evt.preventDefault();
+						return;
+					}
+				};
 
 				scope.removeList = function(){
 					this.innerCollection.forEach(function(item, index){
@@ -143,9 +170,15 @@ angular.module('mdChips', [])
 					element[0].querySelector('.chipsInput').focus();
 				};
 
-				scope.showMore = function(index, event){
+				scope.showMore = function(index, evt){
+					if (scope.disabled){
+						evt.stopPropagation();
+						evt.stopImmediatePropagation();
+						evt.preventDefault();
+						return;
+					}
 					this.removeList();
-					scope.ytop = event.currentTarget.offsetTop + 'px';
+					scope.ytop = evt.currentTarget.offsetTop + 'px';
 					var item = scope.ngModel[index],
 						chipsActive = element[0].querySelector('.chips-active');
 					var show = 	item[scope.mdThumbnail] ? true : false;
