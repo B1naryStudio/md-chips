@@ -62,6 +62,14 @@ angular.module('mdChips', [])
 			link: function (scope, element, attrs) {
 				scope.ytop = '10px';
 
+				scope.$watch("disabled",function() {
+		            if (scope.disabled){
+		            	element[0].className += ' md-chips-disabled';
+		            } else {
+		            	element[0].className = element[0].className.replace(' md-chips-disabled', '');
+		            }
+		        });
+
 				scope.innerCollection = scope.collection.map(function(item){
 					if (!item[scope.mdTitle]){ 
 						return; 
@@ -122,10 +130,10 @@ angular.module('mdChips', [])
 
 				element.bind('click', function(evt){
 					if (scope.disabled){
-						element.find('input')[0].disabled = true;
 						evt.stopPropagation();
 						evt.stopImmediatePropagation();
 						evt.preventDefault();
+						element.find('input')[0].disabled = true;
 						return;
 					}
 					element.find('input')[0].disabled = false;
@@ -138,7 +146,6 @@ angular.module('mdChips', [])
 						evt.stopPropagation();
 						evt.stopImmediatePropagation();
 						evt.preventDefault();
-						evt.target.disabled = true;
 						return;
 					}
 				};

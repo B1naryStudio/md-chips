@@ -291,6 +291,16 @@ input.chipsInput[type="text"]:disabled {
 	background: #e8e8e8;
 }
 
+.md-chips-disabled input {
+	visibility: hidden;
+}
+
+.md-chips-disabled .chips-mini {
+	background:#E7E7E7;
+	box-shadow: none;
+	cursor: default;
+}
+
 #chips-list::-webkit-scrollbar {  
     width: 7px;
 }  
@@ -304,7 +314,7 @@ input.chipsInput[type="text"]:disabled {
 }  
 #chips-list::-webkit-scrollbar-thumb:hover {  
     background-color: #aaa;  
-}  
+}
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
