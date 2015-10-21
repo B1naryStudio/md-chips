@@ -96,7 +96,7 @@ $scope.returnedValues = [];
 
 ## Changelog
 
-### 0.2.2 (2015-10-11)
+### 0.2.2 (2015-10-21)
 
 - add possibility to set unique attribute
 
