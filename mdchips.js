@@ -193,12 +193,6 @@ angular.module('mdChips', [])
 				};
 
 				scope.showMore = function(index, evt){
-					if (scope.disabled){
-						evt.stopPropagation();
-						evt.stopImmediatePropagation();
-						evt.preventDefault();
-						return;
-					}
 					this.removeList();
 					scope.ytop = evt.currentTarget.offsetTop + 'px';
 					var item = scope.ngModel[index],
@@ -211,14 +205,14 @@ angular.module('mdChips', [])
 												<img src="' + thumb + '" ng-show=' + show + ' /> \
 												<div class="chips-active-image-default" ng-show=' + !show + '></div> \
 											</div> \
-											<div class="boxclose" id="boxclose" ng-click=deleteChips(' + index + ')><a></a></div> \
+											<div class="boxclose" ng-if="!disabled" id="boxclose" ng-click=deleteChips(' + index + ')><a></a></div> \
 											<div class="chips-active-wrap"> \
 												<div class="chips-active-title" >' + item[scope.mdTitle] + '</div> \
 												<p class="chips-active-description">' + item[scope.mdSubtitle] + '</p> \
 											</div> \
 										</div>';
 					
-					if (item[scope.mdItem] && item[scope.mdItem].length > 0){
+					if (item[scope.mdItem] && item[scope.mdItem].length > 0 && !scope.disabled){
 						for(var i=0; i < item[scope.mdItem].length; i++){
 							var url = item[scope.mdItem][i][scope.mdThumbnail] ? item[scope.mdItem][i][scope.mdThumbnail] : ''; 
 							show = url ? true : false;
