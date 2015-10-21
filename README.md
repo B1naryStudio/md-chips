@@ -34,7 +34,7 @@ angular.module('myModule', ['mdChips'])
 In your html markup write
 
 ```html
-<md-chips collection='itemsCollection' ng-model='selectedUsers' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items' disabled='false'/>
+<md-chips collection='itemsCollection' ng-model='selectedUsers' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items' disabled='false' unique='true' />
 ```
 ## Attributes
 
@@ -45,6 +45,7 @@ In your html markup write
 * **md-subtitle** - (required) Name of the subtitle field in your collection
 * **items**  - (optional) Name of the field in your collection with additional thumbnails and subtitles
 * **disabled** - (optional) Allows to disable chips component
+* **unique** - (optional) Allows to select only unique items
 
 ## Collection structure
 
@@ -94,6 +95,10 @@ $scope.returnedValues = [];
 ```
 
 ## Changelog
+
+### 0.2.2 (2015-10-11)
+
+- add possibility to set unique attribute
 
 ### 0.2.2 (2015-10-11)
 
