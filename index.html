@@ -70,10 +70,10 @@
 				Disable directive
 				<input type='checkbox' ng-model='checkboxVal.variable' ng-change='check()'>
 			</label>
-			<!-- <label>
-				Set unique
-				<input type='checkbox' ng-model='checkboxVal.unique' ng-change='checkUnique()'>
-			</label> -->
+			<label>
+				Make unique
+				<input type='checkbox' ng-model='checkboxVal.unique' ng-change='check()'>
+			</label>
 			<div class="header">
 				<p>Click into bottom field and type letter...</p>
 			</div>
@@ -90,6 +90,7 @@
 			</div>
 		</div>
 		<h4>Disabled: </h4>{{checkboxVal.variable.toString()}}
+		<h4>Unique: </h4>{{checkboxVal.unique.toString()}}
 	</body>
 	<script src="angular.js"></script>
 	<script src="mdchips.js"></script>

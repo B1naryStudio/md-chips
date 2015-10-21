@@ -34,7 +34,7 @@ angular.module('mdChipsDemo', ['mdChips'])
 
 		$scope.checkboxVal = {
 			variable: false,
-			unique: false
+			unique: true
 		};
 
 		$scope.check = function(){
