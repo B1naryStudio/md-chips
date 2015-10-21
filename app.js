@@ -1,5 +1,5 @@
 angular.module('mdChipsDemo', ['mdChips'])
-	.controller('MainController', function($scope){
+	.controller('MainController', function($scope, $timeout){
 		$scope.itemsCollection = [{
 			thumbnailUrl: 'images/afflek.jpg',
 			title: 'Ben Afflek',
@@ -31,4 +31,15 @@ angular.module('mdChipsDemo', ['mdChips'])
 		}];
 
 		$scope.selectedUsers = [];
+
+		$scope.checkboxVal = {
+			variable: false,
+			unique: true
+		};
+
+		$scope.check = function(){
+			$timeout(function(){
+				$scope.$apply();
+			});
+		};
 	});

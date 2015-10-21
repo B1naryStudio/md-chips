@@ -66,11 +66,19 @@
 		<p style="text-align:center"><a href="http://www.binary-studio.com/"><img src='logo.gif'></p></a>
 		<p><h1 class="headerText">Demo for Angular md-chips directive</h1></p>
 		<div class='demo-wrap'>
+			<label>
+				Disable directive
+				<input type='checkbox' ng-model='checkboxVal.variable' ng-change='check()'>
+			</label>
+			<label>
+				Make unique
+				<input type='checkbox' ng-model='checkboxVal.unique' ng-change='check()'>
+			</label>
 			<div class="header">
 				<p>Click into bottom field and type letter...</p>
 			</div>
 			<div class='toUserText'> To </div>
-			<md-chips collection='itemsCollection' ng-model='selectedUsers' text='To' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items' class='input'/>
+			<md-chips disabled='checkboxVal.variable' collection='itemsCollection' ng-model='selectedUsers' text='To' md-title='title' md-thumbnail='thumbnailUrl' md-subtitle='subtitle' md-item='items' class='input' unique='checkboxVal.unique' />
 		</div>
 		<div>
 			<h3>Returned values:</h3>
@@ -81,6 +89,8 @@
 				<p><b>Items -</b> {{user.items}}</p>
 			</div>
 		</div>
+		<h4>Disabled: </h4>{{checkboxVal.variable.toString()}}
+		<h4>Unique: </h4>{{checkboxVal.unique.toString()}}
 	</body>
 	<script src="angular.js"></script>
 	<script src="mdchips.js"></script>
