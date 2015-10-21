@@ -60,6 +60,7 @@ angular.module('mdChips', [])
 				unique: '='
 			},
 			link: function (scope, element, attrs) {
+
 				scope.ytop = '10px';
 
 				scope.$watch("disabled",function() {
@@ -162,9 +163,30 @@ angular.module('mdChips', [])
 					}
 				};
 
+				scope.checkPresenceInArray = function(obj){
+					var present;
+					var result = this.ngModel.some(function(item){
+						var exactMatch = true;
+						for (var i in item){
+							if (JSON.stringify(item[i]) !== JSON.stringify(obj[i])){
+								exactMatch = false;
+							}
+						}
+						if (exactMatch){
+							return true;
+						}
+
+					});
+					return result;
+				},
+
 				scope.addToInput = function(item){
 					var chipsElement = JSON.parse(JSON.stringify(item));
-					this.ngModel.push(chipsElement);
+					var len = this.ngModel.length;
+					if (scope.unique && !scope.checkPresenceInArray(item) || !scope.unique){
+						this.ngModel.push(chipsElement);
+					}
+
 					this.chipsText[this.mdTitle] = '';
 					this.removeList();
 					element[0].querySelector('.chipsInput').focus();
@@ -266,7 +288,7 @@ angular.module('mdChips', [])
 					} else {
 						return;
 					}
-				}); 
+				});
 
 				scope.deleteChips = function(index){
 					scope.ngModel.splice(index,1);
