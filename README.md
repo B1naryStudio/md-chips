@@ -112,9 +112,9 @@ $scope.returnedValues = [];
 - fix displaying long names
 - fix styles for items list
 
-##Created by [BogdanRusinka](https://github.com/BogdanRusinka) 
+## Created by [BogdanRusinka](https://github.com/BogdanRusinka) 
 
-##Contributing
+## Contributing
 Feel free to open issues and send PRs. 
 
 ## License
