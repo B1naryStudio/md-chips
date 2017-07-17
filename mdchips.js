@@ -43,7 +43,7 @@ angular.module('mdChips', [])
 										</div> \
 									</div> \
 									<div class="chips-active" ng-style="{top: ytop}" ng-model="ytop" ng-click="closeActive($event)"></div> \
-									<input type="text" ng-model="chipsText[mdTitle]" ng-focus="clearActive()" ng-keydown="clearPrev($event)" ng-click="checkDisabled($event)" class="chipsInput" placeholder="{{ngPlaceholder}}/> \
+									<input type="text" ng-model="chipsText[mdTitle]" ng-focus="clearActive()" ng-keydown="clearPrev($event)" ng-click="checkDisabled($event)" class="chipsInput" placeholder="{{ngPlaceholder}}" /> \
 								</div> \
 							</div> \
 						</div>',
